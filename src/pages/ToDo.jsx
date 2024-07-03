@@ -14,7 +14,7 @@ export const ToDo = () => {
     const isShowRedactModal = useSelector((state) => state.showRedactModal);
     const [delId, setDelId] = useState("");
     const [redactId, setRedactId] = useState("");
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
     const filterLevel = params.get("filterLevel") ?? "all";
     const filterText = params.get("filterText") ?? "";
     const dispatch = useDispatch();
@@ -84,7 +84,11 @@ export const ToDo = () => {
         <>
             <SortToDo />
             {list.length > 0 && (
-                <ListToDo list={visibleList(list)} delToDo={delToDo} redact={redToDo} />
+                <ListToDo
+                    list={visibleList(list)}
+                    delToDo={delToDo}
+                    redact={redToDo}
+                />
             )}
             {isShowModal && <ConfirmModal delToDo={delToDo} />}
             {isShowRedactModal && <RedactModal redactToDo={redToDo} />}
