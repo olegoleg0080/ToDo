@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/olegoleg0080/ToDo/static/css/main.7cda0caf.css",
+    "main.js": "/olegoleg0080/ToDo/static/js/main.0a429764.js",
+    "index.html": "/olegoleg0080/ToDo/index.html",
+    "main.7cda0caf.css.map": "/olegoleg0080/ToDo/static/css/main.7cda0caf.css.map",
+    "main.0a429764.js.map": "/olegoleg0080/ToDo/static/js/main.0a429764.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7cda0caf.css",
+    "static/js/main.0a429764.js"
+  ]
+}
