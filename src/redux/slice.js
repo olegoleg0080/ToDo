@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createToDO, deleteToDo, fetchToDo, redactToDo } from "API";
+import { createToDo, deleteToDo, fetchToDo, redactToDo } from "API";
 
 const toDoSlice = createSlice({
     name: "toDo",
@@ -7,14 +7,17 @@ const toDoSlice = createSlice({
         list: [],
         showModal: false,
         showRedactModal: false,
+        Loading: false,
     },
     extraReducers: (builder) =>
         builder
             .addCase(fetchToDo.pending, (state, action) => {
                 console.log("pending");
+                state.Loading = !state.Loading;
             })
             .addCase(fetchToDo.fulfilled, (state, action) => {
                 state.list = action.payload;
+                state.Loading = !state.Loading;
             })
             .addCase(fetchToDo.rejected, (state, action) => {
                 console.log("rejected");
@@ -22,35 +25,41 @@ const toDoSlice = createSlice({
             // ********************************************************
             .addCase(deleteToDo.pending, (state, action) => {
                 console.log("pending modal");
+                state.Loading = !state.Loading;
             })
             .addCase(deleteToDo.fulfilled, (state, action) => {
                 state.list = state.list.filter(
                     (item) => item.id !== action.payload.id
                 );
+                state.Loading = !state.Loading;
             })
             .addCase(deleteToDo.rejected, (state, action) => {
                 console.log("rejected modal");
             })
             // ********************************************************
-            .addCase(createToDO.pending, (state, action) => {
+            .addCase(createToDo.pending, (state, action) => {
                 console.log("pending create");
+                state.Loading = !state.Loading;
             })
-            .addCase(createToDO.fulfilled, (state, action) => {
+            .addCase(createToDo.fulfilled, (state, action) => {
                 console.log("action", action);
                 state.list.push(action.payload);
+                state.Loading = !state.Loading;
             })
-            .addCase(createToDO.rejected, (state, action) => {
+            .addCase(createToDo.rejected, (state, action) => {
                 console.log("rejected create");
             })
             // ********************************************************
             .addCase(redactToDo.pending, (state, action) => {
                 console.log("pending redact");
+                state.Loading = !state.Loading;
             })
             .addCase(redactToDo.fulfilled, (state, action) => {
                 const updatedIndex = state.list.findIndex(
                     (item) => item.id === action.payload.id
                 );
                 state.list[updatedIndex] = action.payload;
+                state.Loading = !state.Loading;
             })
             .addCase(redactToDo.rejected, (state, action) => {
                 console.log("rejected redact");

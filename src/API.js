@@ -27,7 +27,7 @@ export const deleteToDo = createAsyncThunk(
     }
 );
 
-export const createToDO = createAsyncThunk(
+export const createToDo = createAsyncThunk(
     "toDo/createToDo",
     async (values, ThunkAPI) => {
         try {
