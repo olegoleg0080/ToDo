@@ -37,7 +37,7 @@ export const CreateToDoForm = ({ onAdd }) => {
                 onChange={(event) => setLevel(event.target.value)}
             >
                 <MenuItem value="easy">easy</MenuItem>
-                <MenuItem value="normal">normal</MenuItem>
+                <MenuItem value="middle">middle</MenuItem>
                 <MenuItem value="hard">hard</MenuItem>
             </Select>
             <Button type="submit" variant="contained">

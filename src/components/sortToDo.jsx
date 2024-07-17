@@ -44,7 +44,7 @@ export const SortToDo = () => {
                     >
                         <MenuItem value="all">all</MenuItem>
                         <MenuItem value="easy">easy</MenuItem>
-                        <MenuItem value="normal">normal</MenuItem>
+                        <MenuItem value="middle">middle</MenuItem>
                         <MenuItem value="hard">hard</MenuItem>
                     </Select>
                 </form>

@@ -1,8 +1,7 @@
-import { Button, ListItem, Typography } from "@mui/material";
+import { Box, Button, ListItem, Typography } from "@mui/material";
 import { theme } from "Theme";
 
 export const CardToDo = ({
-    key,
     title,
     description,
     level,
@@ -15,7 +14,7 @@ export const CardToDo = ({
         switch (level) {
             case "easy":
                 return theme.LVL.LEVEL_THREE;
-            case "normal":
+            case "middle":
                 return theme.LVL.LEVEL_TWO;
             case "hard":
                 return theme.LVL.LEVEL_ONE;
@@ -35,17 +34,51 @@ export const CardToDo = ({
                 paddingBottom: "80px",
                 border: `5px solid ${getColor(level)}`,
             }}
-            key={key}
         >
             <Typography sx={{ textAlign: "center" }} variant="h3" to={id}>
                 {title}
             </Typography>
             <Typography variant="h5">{description}</Typography>
             <Typography variant="h3">Level: {level}</Typography>
-            <Button onClick={()=>{delToDo(id)}} sx={{backgroundColor: "#ff0000",position:"absolute",bottom: "3px", color: "#fff", fontSize: "30px", "&:hover":{
-                color: "#ff0000"
-            }} }>Delete</Button>
-            <Button onClick={()=>{redact(id, null, {title, description, level})}}>Redact</Button>
+            <Box
+                sx={{
+                    display: "flex",
+                    gap: "20px",
+                    position: "absolute",
+                    bottom: "3px",
+                }}
+            >
+                <Button
+                    onClick={() => {
+                        delToDo(id);
+                    }}
+                    sx={{
+                        backgroundColor: "#ff0000",
+                        color: "#fff",
+                        fontSize: "30px",
+                        "&:hover": {
+                            color: "#ff0000",
+                        },
+                    }}
+                >
+                    Delete
+                </Button>
+                <Button
+                    onClick={() => {
+                        redact(id, null, { title, description, level });
+                    }}
+                    sx={{
+                        backgroundColor: "#00d0ff",
+                        color: "#fff",
+                        fontSize: "30px",
+                        "&:hover": {
+                            color: "#00d0ff",
+                        },
+                    }}
+                >
+                    Redact
+                </Button>
+            </Box>
         </ListItem>
     );
 };

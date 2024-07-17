@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createToDo, deleteToDo, fetchToDo, redactToDo } from "API";
+import persistReducer from "redux-persist/lib/persistReducer";
+import storage from "redux-persist/lib/storage";
 
 const toDoSlice = createSlice({
     name: "toDo",
@@ -8,6 +10,7 @@ const toDoSlice = createSlice({
         showModal: false,
         showRedactModal: false,
         Loading: false,
+        error: null,
     },
     extraReducers: (builder) =>
         builder
@@ -29,7 +32,7 @@ const toDoSlice = createSlice({
             })
             .addCase(deleteToDo.fulfilled, (state, action) => {
                 state.list = state.list.filter(
-                    (item) => item.id !== action.payload.id
+                    (item) => item._id !== action.payload.id
                 );
                 state.Loading = !state.Loading;
             })
@@ -56,7 +59,7 @@ const toDoSlice = createSlice({
             })
             .addCase(redactToDo.fulfilled, (state, action) => {
                 const updatedIndex = state.list.findIndex(
-                    (item) => item.id === action.payload.id
+                    (item) => item._id === action.payload.id
                 );
                 state.list[updatedIndex] = action.payload;
                 state.Loading = !state.Loading;
@@ -71,7 +74,21 @@ const toDoSlice = createSlice({
         showReductModal: (state, action) => {
             state.showRedactModal = !state.showRedactModal;
         },
+        errorDel: (state, action) =>{
+            state.error = null;
+        }
     },
 });
-export const { showModal, showReductModal } = toDoSlice.actions;
+export const { showModal, showReductModal, errorDel } = toDoSlice.actions;
 export const toDoReducer = toDoSlice.reducer;
+
+const toDoPersistConfig = {
+    key: "root",
+    storage: storage,
+    whitelist: ["list"],
+};
+
+export const toDoPersistReducer = persistReducer(
+    toDoPersistConfig,
+    toDoReducer
+);

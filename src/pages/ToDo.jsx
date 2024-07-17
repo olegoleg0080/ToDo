@@ -7,11 +7,12 @@ import { ConfirmModal } from "components/ConfirmModal";
 import { RedactModal } from "components/RedactModal";
 import { SortToDo } from "components/sortToDo";
 import { useSearchParams } from "react-router-dom";
+import { isshowModal, isshowRedactModal, toDoList } from "../redux/seectorsToDO";
 
 export const ToDo = () => {
-    const list = useSelector((state) => state.list);
-    const isShowModal = useSelector((state) => state.showModal);
-    const isShowRedactModal = useSelector((state) => state.showRedactModal);
+    const list = useSelector(toDoList);
+    const isShowModal = useSelector(isshowModal);
+    const isShowRedactModal = useSelector(isshowRedactModal);
     const [delId, setDelId] = useState("");
     const [redactId, setRedactId] = useState("");
     const [params] = useSearchParams();
@@ -83,7 +84,7 @@ export const ToDo = () => {
     return (
         <>
             <SortToDo />
-            {list.length > 0 && (
+            {visibleList(list).length > 0 && (
                 <ListToDo
                     list={visibleList(list)}
                     delToDo={delToDo}

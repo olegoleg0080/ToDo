@@ -6,11 +6,11 @@ export const ListToDo = ({ list, delToDo, redact }) => {
             <List sx={{display: "flex", gap: "10px", flexWrap: "wrap"}}>
                 {list.map((item) => (
                     <CardToDo
-                        key={item.id}
+                        key={item._id}
                         title={item.title}
                         description={item.description}
                         level={item.level}
-                        id={item.id}
+                        id={item._id}
                         status={item.status}
                         delToDo={delToDo}
                         redact={redact}

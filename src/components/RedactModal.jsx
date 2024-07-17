@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { isshowRedactModal } from "../redux/seectorsToDO";
 
 export const RedactModal = ({ redactToDo     }) => {
-    const isShowRedactModal = useSelector((state) => state.showRedactModal);
+    const isShowRedactModal = useSelector(isshowRedactModal);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [level, setLevel] = useState("easy");
@@ -67,7 +68,7 @@ export const RedactModal = ({ redactToDo     }) => {
                             onChange={(event) => setLevel(event.target.value)}
                         >
                             <MenuItem value="easy">easy</MenuItem>
-                            <MenuItem value="normal">normal</MenuItem>
+                            <MenuItem value="middle">middle</MenuItem>
                             <MenuItem value="hard">hard</MenuItem>
                         </Select>
                         <Button type="submit" variant="contained">

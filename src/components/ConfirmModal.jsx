@@ -1,8 +1,9 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import { isshowModal } from "../redux/seectorsToDO";
 
 export const ConfirmModal = ({delToDo}) => {
-    const isShowModal = useSelector((state) => state.showModal);
+    const isShowModal = useSelector(isshowModal);
     return(
         <Modal
         open={isShowModal}
