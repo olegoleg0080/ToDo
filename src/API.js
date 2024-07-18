@@ -8,6 +8,7 @@ export const fetchToDo = createAsyncThunk(
     async (_, ThunkAPI) => {
         try {
             const res = await axios.get("/todos");
+            console.log(res);
             return res.data;
         } catch (error) {
             return ThunkAPI.rejectWithValue("error", error);
