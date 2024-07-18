@@ -15,6 +15,18 @@ export const fetchToDo = createAsyncThunk(
     }
 );
 
+export const fetchToDoById = createAsyncThunk(
+    "toDo/getDataById",
+    async (toDoId, ThunkAPI) => {
+        try {
+            const res = await axios.get(`/todos/${toDoId}`);
+            return res.data;
+        } catch (error) {
+            return ThunkAPI.rejectWithValue("error", error);
+        }
+    }
+);
+
 export const deleteToDo = createAsyncThunk(
     "toDo/delToDo",
     async (toDoId, ThunkAPI) => {
@@ -80,7 +92,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk("auth/login", async (arg, thunkAPI) => {
     try {
         console.log(arg);
-        const res = await axios.post("/users/signi", arg);
+        const res = await axios.post("/users/signin", arg);
         setAuthHeader(res.data.token);
         console.log(res);
         return res.data;

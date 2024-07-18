@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux";
 export const RegistrationPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [username, setUserName] = useState("");
+    const [userName, setUserName] = useState("");
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(register({ email, password, username }));
+        dispatch(register({ email, password, userName: userName }));
         setEmail("");
         setPassword("");
         setUserName("");
@@ -21,7 +21,7 @@ export const RegistrationPage = () => {
                 id="userName"
                 label="UserName"
                 variant="outlined"
-                value={username}
+                value={userName}
                 onChange={(event) => setUserName(event.target.value)}
             />
             <TextField

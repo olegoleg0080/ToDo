@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createToDo, deleteToDo, fetchToDo, redactToDo } from "API";
+import { createToDo, deleteToDo, fetchToDo, fetchToDoById, redactToDo } from "API";
 import persistReducer from "redux-persist/lib/persistReducer";
 import storage from "redux-persist/lib/storage";
 
@@ -7,6 +7,7 @@ const toDoSlice = createSlice({
     name: "toDo",
     initialState: {
         list: [],
+        toDoById: {},
         showModal: false,
         showRedactModal: false,
         Loading: false,
@@ -23,6 +24,11 @@ const toDoSlice = createSlice({
                 state.Loading = !state.Loading;
             })
             .addCase(fetchToDo.rejected, (state, action) => {
+                if (action.payload.status === 404) {
+                    state.error = 404;
+                } else {
+                    console.log("error:", action.payload.status);
+                }
                 console.log("rejected");
             })
             // ********************************************************
@@ -31,12 +37,18 @@ const toDoSlice = createSlice({
                 state.Loading = !state.Loading;
             })
             .addCase(deleteToDo.fulfilled, (state, action) => {
+                console.log(typeof action.meta.arg);
                 state.list = state.list.filter(
-                    (item) => item._id !== action.payload.id
+                    (item) => item._id !== action.meta.arg
                 );
                 state.Loading = !state.Loading;
             })
             .addCase(deleteToDo.rejected, (state, action) => {
+                if (action.payload.status === 404) {
+                    state.error = 404;
+                } else {
+                    console.log("error:", action.payload.status);
+                }
                 console.log("rejected modal");
             })
             // ********************************************************
@@ -50,6 +62,28 @@ const toDoSlice = createSlice({
                 state.Loading = !state.Loading;
             })
             .addCase(createToDo.rejected, (state, action) => {
+                if (action.payload.status === 404) {
+                    state.error = 404;
+                } else {
+                    console.log("error:", action.payload.status);
+                }
+                console.log("rejected create");
+            })
+            // ********************************************************
+            .addCase(fetchToDoById.pending, (state, action) => {
+                state.Loading = !state.Loading;
+            })
+            .addCase(fetchToDoById.fulfilled, (state, action) => {
+                console.log("action.payload", action.payload);
+                state.toDoById = action.payload;
+                state.Loading = !state.Loading;
+            })
+            .addCase(fetchToDoById.rejected, (state, action) => {
+                if (action.payload.status === 404) {
+                    state.error = 404;
+                } else {
+                    console.log("error:", action.payload.status);
+                }
                 console.log("rejected create");
             })
             // ********************************************************
@@ -59,12 +93,17 @@ const toDoSlice = createSlice({
             })
             .addCase(redactToDo.fulfilled, (state, action) => {
                 const updatedIndex = state.list.findIndex(
-                    (item) => item._id === action.payload.id
+                    (item) => item._id === action.payload._id
                 );
                 state.list[updatedIndex] = action.payload;
                 state.Loading = !state.Loading;
             })
             .addCase(redactToDo.rejected, (state, action) => {
+                if (action.payload.status === 404) {
+                    state.error = 404;
+                } else {
+                    console.log("error:", action.payload.status);
+                }
                 console.log("rejected redact");
             }),
     reducers: {
@@ -74,9 +113,9 @@ const toDoSlice = createSlice({
         showReductModal: (state, action) => {
             state.showRedactModal = !state.showRedactModal;
         },
-        errorDel: (state, action) =>{
+        errorDel: (state, action) => {
             state.error = null;
-        }
+        },
     },
 });
 export const { showModal, showReductModal, errorDel } = toDoSlice.actions;

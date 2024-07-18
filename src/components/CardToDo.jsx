@@ -1,4 +1,5 @@
 import { Box, Button, ListItem, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import { theme } from "Theme";
 
 export const CardToDo = ({
@@ -35,8 +36,17 @@ export const CardToDo = ({
                 border: `5px solid ${getColor(level)}`,
             }}
         >
-            <Typography sx={{ textAlign: "center" }} variant="h3" to={id}>
-                {title}
+            <Typography
+                sx={{
+                    textAlign: "center",
+                    "&>*": {
+                        textDecoration: "none",
+                        color: "black",
+                    },
+                }}
+                variant="h3"
+            >
+                <NavLink to={id}>{title}</NavLink>
             </Typography>
             <Typography variant="h5">{description}</Typography>
             <Typography variant="h3">Level: {level}</Typography>

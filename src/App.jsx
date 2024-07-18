@@ -11,10 +11,11 @@ import { RegistrationPage } from "pages/RegistrationPage";
 import { ToDo } from "pages/ToDo";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { errorToDo, isloading } from "./redux/seectorsToDO";
 import { errorAccount } from "./redux/auth/selectors";
 import { Error404Page } from "pages/Error404Page";
+import { ToDoDetal } from "pages/ToDoDetals";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const App = () => {
     }, [dispatch]);
     const isLoading = useSelector(isloading);
     const errorAcaunt = useSelector(errorAccount);
-    const errorToDos = useSelector(errorToDo)
+    const errorToDos = useSelector(errorToDo);
     return (
         <>
             <Routes>
@@ -62,11 +63,16 @@ export const App = () => {
                             <PrivateRoute redirect="/login" component={ToDo} />
                         }
                     />
+                    <Route
+                            path="ToDos/:toDoId"
+                            element={<ToDoDetal />}
+                        />
+                    <Route path="NotFaund" element={<Error404Page />} />
                     <Route path="*" element={<div>404!!!</div>} />
                 </Route>
             </Routes>
             {isLoading && <Loader />}
-            {(errorAcaunt || errorToDos) && <Error404Page/>}
+            {(errorAcaunt || errorToDos) && <Navigate to={"/NotFaund"} />}
             <GlobalStyle />
         </>
     );

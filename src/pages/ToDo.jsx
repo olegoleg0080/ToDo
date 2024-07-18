@@ -22,7 +22,7 @@ export const ToDo = () => {
     const delToDo = (arg) => {
         switch (typeof arg) {
             case "string":
-                setDelId(Number(arg));
+                setDelId(arg);
                 dispatch(showModal());
                 break;
             case "object":

@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 const initialState = {
     user: {
         email: "",
-        username: "",
+        userName: "",
     },
     token: null,
     isLogged: false,
