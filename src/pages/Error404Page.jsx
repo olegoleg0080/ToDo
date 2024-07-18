@@ -14,7 +14,7 @@ export const Error404Page = () => {
             dispatch(errorDel())
             dispatch(errorAcDel())
         }, 10000);
-    }, []);
+    }, [dispatch, navigate]);
     return (
         <Container maxWidth="xl">
             <Box>
