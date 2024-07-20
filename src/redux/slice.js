@@ -78,6 +78,7 @@ const toDoSlice = createSlice({
                 state.toDoById = action.payload;
                 state.Loading = !state.Loading;
             })
+            
             .addCase(fetchToDoById.rejected, (state, action) => {
                 if (action.payload.status === 404) {
                     state.error = 404;
